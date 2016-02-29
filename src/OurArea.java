@@ -1,55 +1,36 @@
-public class OurArea extends Area {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
+public class OurArea extends Area implements ActionListener {
   
-  /*
-  // The trees that are scattered around the area.
-  Tree trees[];
-  
-  // The area tile map, with each tile represented as an integer.
-  int tiles[][];
-  
-  // The tile values for grass (0) and stone (1) tiles.
-  int grass;
-  int stone;
-  
-  // The number of tiles on the x-axis, and y-axis.
-  int numTilesX;
-  int numTilesY;
-  
-  // The maximum position of a tree on the x-axis and y-axis.
-  // Note: The minimum is simply (0, 0).
-  double maxTreeX;
-  double maxTreeY;
-  */
-  
-  // The constructor for OurArea. It takes in a parameter for the
-  // number of trees to place in the area.
-  public OurArea(int numberOfTrees) {
-    super(); // A magic function. I wonder what it does? 
-    
-    //* Exercise #1. Setup the tree objects at random locations.
+	private Timer oceanClock = new Timer(100,this);
+	int numberOfTrees = 3;
+	
+  public OurArea() {
+    super(); 
+    oceanClock.start();
     trees = new Tree[numberOfTrees];
     for (int i = 0; i < numberOfTrees; i++) {
-      trees[i] = new Tree((int)(Math.random() * maxTreeX),
-                          (int)(Math.random() * maxTreeY));
+      trees[i] = new Tree((int)(400), (int)(5));
+      
     }
-    //*/
-    
-    //* Exercise #3. Initialize the tiles.
     tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
-    // Example: Draw specific at specific locations.
     tiles[0][0] = stone;
     tiles[2][3] = stone;
     tiles[5][5] = fire;
     tiles[8][3] = fire;
-    tiles[2][2] = fire;
-    tiles[0][9] = sand;
-    tiles[1][9] = sand;
-    tiles[2][9] = sand;
-    tiles[0][8] = sand;
-    tiles[1][8] = sand;
-    tiles[2][8] = sand;
-    //*/
-  }
+    for (int i = 0; i < 4; i++) {
+        for (int j = 3; j < numTilesY; j++) {
+            tiles[i][j] = sand;
+          }
+    }
+    for (int i = 0; i < 3; i++) {
+        for (int j = 4; j < numTilesY; j++) {
+            tiles[i][j] = ocean;
+          }
+    }
+ }
   
   // This function must draw each tree to the screen.
   protected void drawTrees() {
@@ -57,33 +38,43 @@ public class OurArea extends Area {
     for (int i = 0; i < trees.length; i++) {
       drawTree(i);
     }
-    //*/
   }
   
+  private int GifCounter = 1;
+
   protected void drawTiles() {
-    //* Exercise #4. Draw the tiles.
     for (int i = 0; i < numTilesX; i++) {
       for (int j = 0; j < numTilesY; j++) {
-
+    	 Tile t = null;
         if (tiles[i][j] == grass) {
-        	Grass g = new Grass();
-        	drawTile(g, i, j);
+        	t = new Grass();
         } 
         else if (tiles[i][j] == stone) {
-         	Stone s = new Stone();
-        	drawTile(s, i, j);
+        	t = new Stone();      	
         }
         else if (tiles[i][j] == fire) {
-        	Fire f = new Fire();
-         	drawTile(f, i, j);
+        	t = new Fire();
         }
         else if (tiles[i][j] == sand) {
-        	Sand sa = new Sand();
-         	drawTile(sa, i, j);
+        	t = new Sand();
         }
+        else if (tiles[i][j] == ocean) {
+        	t = new Ocean("OceanAnimation/OceanGif-" + GifCounter + ".png");
+        }
+        drawTile(t, i, j);
       }
     }
-    //*/
+  }
+
+  public void actionPerformed(ActionEvent e){
+      if (e.getSource() == oceanClock){
+    	  GifCounter++;
+    	  if (GifCounter == 12) {
+    		  GifCounter = 1;
+    	  }
+    	  repaint();
+      }
   }
   
 }
+  

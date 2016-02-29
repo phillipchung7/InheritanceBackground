@@ -1,14 +1,12 @@
-import java.util.Random;
-
 public class InheritanceDriver {
   
   // The main driver method.
   public static void main(String args[]) {
     
-    OurArea area = new OurArea(3);
+    OurArea area = new OurArea();
     
     // Use our area, and show the window.
-    Window window = new Window("Inheritance Lecture");
+    Window window = new Window("Phillip's Game");
     window.add(area);
     window.setVisible(true);
   }

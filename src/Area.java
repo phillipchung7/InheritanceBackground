@@ -3,12 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import java.io.IOException;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
-
 
 public class Area extends JPanel {
 
@@ -26,6 +21,7 @@ public class Area extends JPanel {
   protected static final int stone = 1;
   protected static final int fire = 2;
   protected static final int sand = 3;
+  protected static final int ocean = 4;
   protected static final int numTilesX = Window.WIDTH / 64;
   protected static final int numTilesY = Window.HEIGHT / 64;
   protected static final double maxTreeX = Window.WIDTH - Tree.WIDTH;
