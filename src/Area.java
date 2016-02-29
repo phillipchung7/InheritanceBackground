@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 
 public class Area extends JPanel {
 
-  // The trees that are scattered around the area.
-  protected Tree trees[];
+  // The sprites that are scattered around the area.
+  protected Sprite sprites[];
 
   // The area tile map.
   protected int tiles[][];
@@ -22,10 +22,11 @@ public class Area extends JPanel {
   protected static final int fire = 2;
   protected static final int sand = 3;
   protected static final int ocean = 4;
+
   protected static final int numTilesX = Window.WIDTH / 64;
   protected static final int numTilesY = Window.HEIGHT / 64;
-  protected static final double maxTreeX = Window.WIDTH - Tree.WIDTH;
-  protected static final double maxTreeY = Window.HEIGHT - Tree.HEIGHT;
+  protected static final double maxSpriteX = Window.WIDTH - Sprite.WIDTH;
+  protected static final double maxSpriteY = Window.HEIGHT - Sprite.HEIGHT;
   
   
   // The constructor for the Area class.
@@ -39,9 +40,9 @@ public class Area extends JPanel {
     t.draw(g2,i , j);
   }
  
-  protected void drawTree(int i) {
-    if (trees != null) {
-      trees[i].draw(g2);
+  protected void drawSprite(int i) {
+    if (sprites != null) {
+    	sprites[i].draw(g2);
     }
   }
   
@@ -56,7 +57,7 @@ public class Area extends JPanel {
     g2 = (Graphics2D)g;
     
     drawTiles();
-    drawTrees();
+    drawSprites();
     
     // Sync for cross-platform smooth rendering.
     Toolkit.getDefaultToolkit().sync();
@@ -66,7 +67,7 @@ public class Area extends JPanel {
     // TODO: Implement in a child class.
   }
   
-  protected void drawTrees() {
+  protected void drawSprites() {
     // TODO: Implement in a child class.
   }
   

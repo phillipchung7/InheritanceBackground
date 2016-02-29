@@ -5,38 +5,37 @@ import javax.swing.Timer;
 public class OurArea extends Area implements ActionListener {
   
 	private Timer oceanClock = new Timer(100,this);
-	int numberOfTrees = 3;
+	int numberOfSprites = 3;
 	
   public OurArea() {
-    super(); 
+    super();
     oceanClock.start();
-    trees = new Tree[numberOfTrees];
-    for (int i = 0; i < numberOfTrees; i++) {
-      trees[i] = new Tree((int)(400), (int)(5));
-      
-    }
+    
+    sprites = new Sprite[numberOfSprites];
+    sprites[0] = new TreeSprite(128, 200);
+    sprites[1] = new TreeSprite(128, 300);
+    sprites[2] = new BoatSprite(128, 400);
+            
     tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
     tiles[0][0] = stone;
     tiles[2][3] = stone;
-    tiles[5][5] = fire;
     tiles[8][3] = fire;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < numTilesX; i++) {
         for (int j = 3; j < numTilesY; j++) {
             tiles[i][j] = sand;
           }
     }
-    for (int i = 0; i < 3; i++) {
-        for (int j = 4; j < numTilesY; j++) {
+    for (int i = 0; i < numTilesX; i++) {
+        for (int j = 5; j < numTilesY; j++) {
             tiles[i][j] = ocean;
           }
     }
  }
   
-  // This function must draw each tree to the screen.
-  protected void drawTrees() {
-    //* Exercise #2. Draw the trees.
-    for (int i = 0; i < trees.length; i++) {
-      drawTree(i);
+  // This function must draw each sprite to the screen.
+  protected void drawSprites() {     //Draw the sprite.
+    for (int i = 0; i < sprites.length; i++) {
+    	drawSprite(i);
     }
   }
   
@@ -45,7 +44,7 @@ public class OurArea extends Area implements ActionListener {
   protected void drawTiles() {
     for (int i = 0; i < numTilesX; i++) {
       for (int j = 0; j < numTilesY; j++) {
-    	 Tile t = null;
+    	Tile t = null;
         if (tiles[i][j] == grass) {
         	t = new Grass();
         } 
