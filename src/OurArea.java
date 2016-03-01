@@ -5,38 +5,41 @@ import javax.swing.Timer;
 public class OurArea extends Area implements ActionListener {
   
 	private Timer oceanClock = new Timer(100,this);
-	int numberOfSprites = 3;
+	private int numberOfTrees = 2;
 	
   public OurArea() {
     super();
     oceanClock.start();
     
-    sprites = new Sprite[numberOfSprites];
-    sprites[0] = new TreeSprite(128, 200);
-    sprites[1] = new TreeSprite(128, 300);
-    sprites[2] = new BoatSprite(128, 400);
+    boats = new BoatSprite[1];
+    boats[0] = new BoatSprite(500, 200);
+    
+    trees = new TreeSprite[numberOfTrees];
+    trees[0] = new TreeSprite(128, 200);
+    trees[1] = new TreeSprite(128, 300);
+    
             
-    tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
+    tiles = new int[numTilesX][numTilesY]; //default value is ocean because ocean equals 0
     tiles[0][0] = stone;
-    tiles[2][3] = stone;
+    tiles[2][1] = stone;
     tiles[8][3] = fire;
     for (int i = 0; i < numTilesX; i++) {
-        for (int j = 3; j < numTilesY; j++) {
+        for (int j = 3; j < 4; j++) {
             tiles[i][j] = sand;
-          }
-    }
-    for (int i = 0; i < numTilesX; i++) {
-        for (int j = 5; j < numTilesY; j++) {
-            tiles[i][j] = ocean;
           }
     }
  }
   
   // This function must draw each sprite to the screen.
-  protected void drawSprites() {     //Draw the sprite.
-    for (int i = 0; i < sprites.length; i++) {
-    	drawSprite(i);
+  protected void drawBoats() {     //Draw the sprite.
+    for (int i = 0; i < boats.length; i++) {
+    	drawBoat(i);
     }
+  }
+  protected void drawTrees() {     //Draw the sprite.
+	    for (int i = 0; i < trees.length; i++) {
+	    	drawTree(i);
+	    }
   }
   
   private int GifCounter = 1;

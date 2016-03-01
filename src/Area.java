@@ -8,8 +8,9 @@ import javax.swing.JPanel;
 public class Area extends JPanel {
 
   // The sprites that are scattered around the area.
-  protected Sprite sprites[];
-
+  protected TreeSprite trees[];
+  protected BoatSprite boats[];
+  
   // The area tile map.
   protected int tiles[][];
   
@@ -17,11 +18,11 @@ public class Area extends JPanel {
   private Graphics2D g2; //we do not have access to private attributes in subclasses
   
   // Define some constants.
-  protected static final int grass = 0; //static makes it so that you don't have to create an object. You can just do Area.grass.
+  protected static final int ocean = 0; //static makes it so that you don't have to create an object. You can just do Area.grass.
   protected static final int stone = 1;
   protected static final int fire = 2;
   protected static final int sand = 3;
-  protected static final int ocean = 4;
+  protected static final int grass = 4;
 
   protected static final int numTilesX = Window.WIDTH / 64;
   protected static final int numTilesY = Window.HEIGHT / 64;
@@ -37,12 +38,17 @@ public class Area extends JPanel {
   }
   
   protected void drawTile(Tile t, int i, int j) {
-    t.draw(g2,i , j);
+    t.draw(g2, i, j);
   }
  
-  protected void drawSprite(int i) {
-    if (sprites != null) {
-    	sprites[i].draw(g2);
+  protected void drawBoat(int i) {
+	if (boats != null) {
+		  boats[i].draw(g2);
+	    }
+  }
+  protected void drawTree(int i) {
+    if (trees != null) {
+    	trees[i].draw(g2);
     }
   }
   
@@ -57,7 +63,8 @@ public class Area extends JPanel {
     g2 = (Graphics2D)g;
     
     drawTiles();
-    drawSprites();
+    drawBoats();
+    drawTrees();
     
     // Sync for cross-platform smooth rendering.
     Toolkit.getDefaultToolkit().sync();
@@ -66,9 +73,11 @@ public class Area extends JPanel {
   protected void drawTiles() {
     // TODO: Implement in a child class.
   }
-  
-  protected void drawSprites() {
+  protected void drawBoats() {
     // TODO: Implement in a child class.
   }
+  protected void drawTrees() {
+	    // TODO: Implement in a child class.
+	  }
   
 }
