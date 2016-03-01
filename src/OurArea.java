@@ -38,7 +38,7 @@ public class OurArea extends Area implements ActionListener, KeyListener {
 		oceanAnimationFrames[i] = new Ocean("OceanAnimation/OceanGif-" + (i+1) + ".png");
 	}
 	
-    tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
+    tiles = new int[numTilesX][numTilesY]; //default value is ocean because ocean equals 0
     tiles[9][9] = grass;
     tiles[8][9] = grass;
     tiles[9][8] = grass;
@@ -91,19 +91,18 @@ public class OurArea extends Area implements ActionListener, KeyListener {
     	  repaint();
       }
       if (e.getSource() == boatTimer){
-    	  if (upKeyPressed == true) {
+    	  if (upKeyPressed == true && sprites[0].get_y() > -5) { 						//The and statements set the boundaries for the boat.
         	  sprites[0] = new BoatSprite(sprites[0].get_x(), sprites[0].get_y()-3);
     	  }
-    	  if (downKeyPressed == true) {
+    	  if (downKeyPressed == true && sprites[0].get_y() < 560) {
         	  sprites[0] = new BoatSprite(sprites[0].get_x(), sprites[0].get_y()+3);
     	  }
-    	  if (leftKeyPressed == true) {
+    	  if (leftKeyPressed == true && sprites[0].get_x() > -1) {
         	  sprites[0] = new BoatSprite(sprites[0].get_x()-3, sprites[0].get_y());
     	  }
-    	  if (rightKeyPressed == true) {
+    	  if (rightKeyPressed == true && sprites[0].get_x() < 575) {
         	  sprites[0] = new BoatSprite(sprites[0].get_x()+3, sprites[0].get_y());
     	  }
-    	  
     	  if((sprites[1].get_x() > 500) || (sprites[1].get_x() < 0)) {
     		  sharkVelocity1 = -sharkVelocity1;
     	  }
