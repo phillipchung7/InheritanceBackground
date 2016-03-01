@@ -16,10 +16,6 @@ public class Sprite {
   // The image of the sprite.
   private BufferedImage spriteImage;
   
-  // The size of the sprite.
-  public static int WIDTH;
-  public static int HEIGHT;
-  
   // The constructor for the Sprite class. This allows
   // the user to specify the location of a sprite.
   public Sprite(String spriteFileName, int x, int y) {
@@ -29,8 +25,6 @@ public class Sprite {
     } catch (IOException e) {
       System.out.println("Failed to load" + spriteFileName + "image.");
     }
-    WIDTH = spriteImage.getWidth();
-    HEIGHT = spriteImage.getHeight();
     set_location(x, y);
   }
   
