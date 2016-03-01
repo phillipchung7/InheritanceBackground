@@ -28,7 +28,6 @@ public class Area extends JPanel {
   protected static final double maxSpriteX = Window.WIDTH - Sprite.WIDTH;
   protected static final double maxSpriteY = Window.HEIGHT - Sprite.HEIGHT;
   
-  
   // The constructor for the Area class.
   public Area() {
     g2 = null;

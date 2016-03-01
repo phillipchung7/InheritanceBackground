@@ -7,17 +7,22 @@ import javax.swing.Timer;
 public class OurArea extends Area implements ActionListener, KeyListener {
   
 	private Timer oceanClock = new Timer(100,this);
-	int numberOfSprites = 3;
+	private int numberOfSprites = 3;
+	private boolean upKeyPressed = false;
+	private boolean downKeyPressed = false;
+	private boolean leftKeyPressed = false;
+	private boolean rightKeyPressed = false;
 	
   public OurArea() {
     super();
     oceanClock.start();
-    addKeyListener(this); 
+    addKeyListener(this);
+    setFocusable(true);
     
     sprites = new Sprite[numberOfSprites];
-    sprites[0] = new TreeSprite(128, 200);
-    sprites[1] = new TreeSprite(128, 300);
-    sprites[2] = new BoatSprite(128, 400);
+    sprites[0] = new BoatSprite(128, 400);
+    sprites[1] = new SharkSprite(200, 400);
+
             
     tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
     tiles[0][0] = stone;
@@ -81,22 +86,72 @@ public class OurArea extends Area implements ActionListener, KeyListener {
 @Override
 public void keyTyped(KeyEvent key)
 {
-	// TODO Auto-generated method stub
-	
+	switch(key.getKeyCode()) {
+    	case KeyEvent.VK_UP:
+    		System.out.println("Up tapped");
+    		break;
+    		
+    	case KeyEvent.VK_DOWN:
+    		System.out.println("Down tapped");
+    		break;
+    		
+    	case KeyEvent.VK_LEFT:
+    		System.out.println("Left tapped");
+    		break;
+    		
+    	case KeyEvent.VK_RIGHT:
+    		System.out.println("Right tapped");
+    		break;
+	}
 }
 
 @Override
 public void keyPressed(KeyEvent key)
 {
-	// TODO Auto-generated method stub
-	
+	switch(key.getKeyCode()) {
+    	case KeyEvent.VK_UP:
+    		System.out.println("Up pressed");
+    		upKeyPressed = true;
+    		break;
+    		
+    	case KeyEvent.VK_DOWN:
+    	    sprites[0] = new BoatSprite(sprites[0].get_x(), sprites[0].get_y()+2);
+    		System.out.println("Down pressed");
+    		break;
+    		
+    	case KeyEvent.VK_LEFT:
+    	    sprites[0] = new BoatSprite(sprites[0].get_x()-2, sprites[0].get_y());
+    		System.out.println("Left pressed");
+    		break;
+    		
+    	case KeyEvent.VK_RIGHT:
+    	    sprites[0] = new BoatSprite(sprites[0].get_x()+2, sprites[0].get_y());
+    		System.out.println("Right pressed");
+    		break;
+    }
 }
 
 @Override
 public void keyReleased(KeyEvent key)
 {
-	// TODO Auto-generated method stub
-	
+	switch(key.getKeyCode()) {
+    	case KeyEvent.VK_UP:
+    		System.out.println("Up released");
+    		upKeyPressed = false;
+    		break;
+    		
+    	case KeyEvent.VK_DOWN:
+    		System.out.println("Down released");
+    		break;
+    		
+    	case KeyEvent.VK_LEFT:
+    		System.out.println("Left released");
+    		break;
+    		
+    	case KeyEvent.VK_RIGHT:
+    		System.out.println("Right released");
+    		break;
+    }	
 }
   
 }
