@@ -10,9 +10,11 @@ public class Sprite {
   // For our purposes, the region is 640 by 480.
    int x;
    int y;
+   
+   private String fileName;
 
   // The image of the sprite.
-  private static BufferedImage spriteImage;
+  private BufferedImage spriteImage;
   
   // The size of the sprite.
   public static int WIDTH;
@@ -23,6 +25,7 @@ public class Sprite {
   public Sprite(String spriteFileName, int x, int y) {
     try {
       spriteImage = ImageIO.read(new URL("file:" + spriteFileName));
+      fileName = spriteFileName;
     } catch (IOException e) {
       System.out.println("Failed to load" + spriteFileName + "image.");
     }
@@ -50,6 +53,11 @@ public class Sprite {
   // Draw the sprite at its location in the window.
   public void draw(Graphics2D g2) {
     g2.drawImage(spriteImage, null, x, y);
+  }
+  
+  public String toString()
+  {
+	  return fileName;
   }
   
 }
