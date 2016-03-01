@@ -6,12 +6,10 @@ import javax.swing.Timer;
 
 public class OurArea extends Area implements ActionListener, KeyListener {
   
-	private Timer oceanClock = new Timer(100,this);
+	private Timer oceanClock = new Timer(20,this);
 	private int numberOfSprites = 3;
-	private boolean upKeyPressed = false;
-	private boolean downKeyPressed = false;
-	private boolean leftKeyPressed = false;
-	private boolean rightKeyPressed = false;
+	private Ocean oceanAnimationFrames[];
+	private int frameNumber = 0;
 	
   public OurArea() {
     super();
@@ -23,7 +21,11 @@ public class OurArea extends Area implements ActionListener, KeyListener {
     sprites[0] = new BoatSprite(128, 400);
     sprites[1] = new SharkSprite(200, 400);
 
-            
+	oceanAnimationFrames = new Ocean[11];
+	for (int i=0; i < 11; i++ ) {
+			oceanAnimationFrames[i] = new Ocean("OceanAnimation/OceanGif-" + (i+1) + ".png");
+	}
+	
     tiles = new int[numTilesX][numTilesY]; //default value is grass because grass equals 0
     tiles[0][0] = stone;
     tiles[2][3] = stone;
@@ -47,8 +49,6 @@ public class OurArea extends Area implements ActionListener, KeyListener {
     }
   }
   
-  private int GifCounter = 1;
-
   protected void drawTiles() {
     for (int i = 0; i < numTilesX; i++) {
       for (int j = 0; j < numTilesY; j++) {
@@ -66,7 +66,7 @@ public class OurArea extends Area implements ActionListener, KeyListener {
         	t = new Sand();
         }
         else if (tiles[i][j] == ocean) {
-        	t = new Ocean("OceanAnimation/OceanGif-" + GifCounter + ".png");
+        	t = oceanAnimationFrames[frameNumber];
         }
         drawTile(t, i, j);
       }
@@ -75,9 +75,9 @@ public class OurArea extends Area implements ActionListener, KeyListener {
 
   public void actionPerformed(ActionEvent e){
       if (e.getSource() == oceanClock){
-    	  GifCounter++;
-    	  if (GifCounter == 12) {
-    		  GifCounter = 1;
+    	  frameNumber++;
+    	  if (frameNumber == 11) {
+    		  frameNumber = 0;
     	  }
     	  repaint();
       }
@@ -111,21 +111,17 @@ public void keyPressed(KeyEvent key)
 	switch(key.getKeyCode()) {
     	case KeyEvent.VK_UP:
     		System.out.println("Up pressed");
-    		upKeyPressed = true;
     		break;
     		
     	case KeyEvent.VK_DOWN:
-    	    sprites[0] = new BoatSprite(sprites[0].get_x(), sprites[0].get_y()+2);
     		System.out.println("Down pressed");
     		break;
     		
     	case KeyEvent.VK_LEFT:
-    	    sprites[0] = new BoatSprite(sprites[0].get_x()-2, sprites[0].get_y());
     		System.out.println("Left pressed");
     		break;
     		
     	case KeyEvent.VK_RIGHT:
-    	    sprites[0] = new BoatSprite(sprites[0].get_x()+2, sprites[0].get_y());
     		System.out.println("Right pressed");
     		break;
     }
@@ -137,7 +133,6 @@ public void keyReleased(KeyEvent key)
 	switch(key.getKeyCode()) {
     	case KeyEvent.VK_UP:
     		System.out.println("Up released");
-    		upKeyPressed = false;
     		break;
     		
     	case KeyEvent.VK_DOWN:
